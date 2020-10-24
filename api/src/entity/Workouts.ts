@@ -6,6 +6,9 @@ export class Workouts {
   id: number;
 
   @Column()
+  userId: number;
+
+  @Column()
   date: Date;
 
   @Column()
