@@ -1,10 +1,11 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { ConnectionManager, createConnection } from "typeorm";
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import { Request, Response } from "express";
 import { Routes } from "./routes";
 import { User } from "./entity/User";
+import { Exercise } from "./entity/Exercise";
 
 createConnection()
   .then(async (connection) => {
@@ -42,6 +43,14 @@ createConnection()
     app.listen(3000);
 
     // insert new users for test
+    // await connection.manager.save(
+    //   connection.manager.create(Exercise, {
+    //     userId: 1,
+    //     exercise: "Bench Press",
+    //     description: "Standard Bench Press",
+    //     bodyGroupId: 1,
+    //   })
+    // );
     // await connection.manager.save(connection.manager.create(User, {
     //     firstName: "Timber",
     //     lastName: "Saw",
