@@ -6,6 +6,9 @@ export class Exercise {
   id: number;
 
   @Column()
+  userId: number;
+
+  @Column()
   exercise: string;
 
   @Column()
