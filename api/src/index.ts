@@ -42,6 +42,7 @@ createConnection()
     // start express server
     app.listen(3000);
 
+    //#region EXAMPLE INSERT
     // insert new users for test
     // await connection.manager.save(
     //   connection.manager.create(Exercise, {
@@ -61,6 +62,7 @@ createConnection()
     //     lastName: "Assassin",
     //     age: 24
     // }));
+    //#endregion
 
     console.log(
       "Express server has started on port 3000. Open http://localhost:3000/ to see results"
