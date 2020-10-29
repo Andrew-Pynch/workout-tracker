@@ -1,26 +1,26 @@
 import { getRepository } from "typeorm";
 import { NextFunction, Request, Response } from "express";
-import { BodyGroups } from "../entity/BodyGroup";
+import { BodyGroup } from "../entity/BodyGroup";
 
-export class BodyGroupsController {
-  private BodyGroupsRepository = getRepository(BodyGroups);
+export class BodyGroupController {
+  private BodyGroupRepository = getRepository(BodyGroup);
 
   async all(request: Request, response: Response, next: NextFunction) {
-    return this.BodyGroupsRepository.find();
+    return this.BodyGroupRepository.find();
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
-    return this.BodyGroupsRepository.findOne(request.params.id);
+    return this.BodyGroupRepository.findOne(request.params.id);
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    return this.BodyGroupsRepository.save(request.body);
+    return this.BodyGroupRepository.save(request.body);
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {
-    let bodyGroupToRemove = await this.BodyGroupsRepository.findOne(
+    let bodyGroupToRemove = await this.BodyGroupRepository.findOne(
       request.params.id
     );
-    await this.BodyGroupsRepository.remove(bodyGroupToRemove);
+    await this.BodyGroupRepository.remove(bodyGroupToRemove);
   }
 }

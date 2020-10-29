@@ -1,26 +1,26 @@
 import { getRepository } from "typeorm";
 import { NextFunction, Request, Response } from "express";
-import { Workouts } from "../entity/Workout";
+import { Workout } from "../entity/Workout";
 
-export class WorkoutsController {
-  private workoutsRepository = getRepository(Workouts);
+export class WorkoutController {
+  private workoutRepository = getRepository(Workout);
 
   async all(request: Request, response: Response, next: NextFunction) {
-    return this.workoutsRepository.find();
+    return this.workoutRepository.find();
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
-    return this.workoutsRepository.findOne(request.params.id);
+    return this.workoutRepository.findOne(request.params.id);
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    return this.workoutsRepository.save(request.body);
+    return this.workoutRepository.save(request.body);
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {
-    let workoutToRemove = await this.workoutsRepository.findOne(
+    let workoutToRemove = await this.workoutRepository.findOne(
       request.params.id
     );
-    await this.workoutsRepository.remove(workoutToRemove);
+    await this.workoutRepository.remove(workoutToRemove);
   }
 }
