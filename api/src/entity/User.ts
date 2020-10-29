@@ -1,20 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Workouts } from "./Workouts";
+import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
 
-  @Column()
-  firstName: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @Column()
-  lastName: string;
+    @Column()
+    firstName: string;
 
-  @Column()
-  age: number;
+    @Column()
+    lastName: string;
 
-  @Column()
-  email: string;
+    @Column()
+    age: number;
+
 }
