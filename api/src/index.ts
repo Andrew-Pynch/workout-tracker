@@ -9,9 +9,21 @@ import { Exercise } from "./entity/Exercise";
 
 createConnection()
   .then(async (connection) => {
-    // create express app
+    const fs = require("fs");
+    const express = require("express");
+    const https = require("https");
+    const port = 3000;
+
+    var options = {
+      key: fs.readFileSync("./src/key.pem"),
+      cert: fs.readFileSync("./src/cert.pem"),
+    };
+
     const app = express();
-    app.use(bodyParser.json());
+    app.get("/", (req, res) => {
+      res.send("Now using https..");
+    });
+    var server = https.createServer(options, app);
 
     // register express routes from defined application routes
     Routes.forEach((route) => {
@@ -40,7 +52,7 @@ createConnection()
     // ...
 
     // start express server
-    app.listen(3000);
+    server.listen(3000);
 
     //#region EXAMPLE INSERT
     // insert new users for test
@@ -65,7 +77,7 @@ createConnection()
     //#endregion
 
     console.log(
-      "Express server has started on port 3000. Open http://localhost:3000/ to see results"
+      "Express server has started on port 3000. Open https://localhost:3000/ to see results"
     );
   })
   .catch((error) => console.log(error));
