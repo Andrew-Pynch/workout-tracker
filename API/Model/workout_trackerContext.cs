@@ -16,7 +16,7 @@ namespace API.Model
         }
 
         public virtual DbSet<Bodygroup> Bodygroup { get; set; }
-        public virtual DbSet<Exercisetype> Exercisetype { get; set; }
+        public virtual DbSet<Exercise> Exercise { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Workoutlog> Workoutlog { get; set; }
 
@@ -38,9 +38,9 @@ namespace API.Model
                 entity.Property(e => e.Name).HasMaxLength(45);
             });
 
-            modelBuilder.Entity<Exercisetype>(entity =>
+            modelBuilder.Entity<Exercise>(entity =>
             {
-                entity.ToTable("exercisetype");
+                entity.ToTable("exercise");
 
                 entity.Property(e => e.Name).HasMaxLength(150);
             });

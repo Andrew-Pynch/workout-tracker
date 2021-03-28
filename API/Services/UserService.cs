@@ -23,5 +23,18 @@ namespace API.Services
                 .Where(u => u.Id == _id)
                 .FirstOrDefaultAsync();
         }
+        // Post a new user
+        public async Task PostNewUser(
+            string _firstName,
+            string _lastName, 
+            string _email)
+        {
+            User newUser = new User();
+            newUser.FirstName = _firstName;
+            newUser.LastName = _lastName;
+            newUser.Email = _email;
+            await _db.User.AddAsync(newUser);
+            await _db.SaveChangesAsync();
+        }
     }
 }
