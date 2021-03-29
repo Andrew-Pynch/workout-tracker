@@ -42,7 +42,25 @@ namespace API.Model
             {
                 entity.ToTable("exercise");
 
+                entity.HasIndex(e => e.BodyGroupId)
+                    .HasName("fk_exercise_bodygroup1_idx");
+
+                entity.HasIndex(e => e.UserId)
+                    .HasName("fk_exercise_user_idx");
+
                 entity.Property(e => e.Name).HasMaxLength(150);
+
+                entity.HasOne(d => d.BodyGroup)
+                    .WithMany(p => p.Exercise)
+                    .HasForeignKey(d => d.BodyGroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_exercise_bodygroup1");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Exercise)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_exercise_user");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -60,13 +78,27 @@ namespace API.Model
             {
                 entity.ToTable("workoutlog");
 
-                entity.HasComment(@"										
+                entity.HasComment("										\\\\n\\\\n\\\\n\\\\n");
 
+                entity.HasIndex(e => e.BodyGroupId)
+                    .HasName("fk_workoutlog_bodygroup1_idx");
 
-
-");
+                entity.HasIndex(e => e.UserId)
+                    .HasName("fk_workoutlog_user1_idx");
 
                 entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.HasOne(d => d.BodyGroup)
+                    .WithMany(p => p.Workoutlog)
+                    .HasForeignKey(d => d.BodyGroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_workoutlog_bodygroup1");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Workoutlog)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_workoutlog_user1");
             });
 
             OnModelCreatingPartial(modelBuilder);

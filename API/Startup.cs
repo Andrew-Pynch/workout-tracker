@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,8 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<workout_trackerContext>();
+            services.AddDbContext<workout_trackerContext>(b => b.UseLazyLoadingProxies());
+
             services.AddTransient<ModelService>();
         }
 

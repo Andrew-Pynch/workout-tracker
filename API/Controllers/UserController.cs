@@ -21,32 +21,27 @@ namespace API.Controllers
             return await _ms.GetAllUsers();
         }
 
-        // GET /api/user/get/1
+        // GET /api/user/get/id
         [HttpGet("get/{_id:int}")]
         public async Task<User> GetUserByIdAsync(int _id)
         {
             return await _ms.GetUserById(_id);
         }
-        
-        // POST /api/user/post/{payload}
-        [HttpPost(
-            "post/{_firstName}/{_lastName}/{_email}"
-            )]
-        public async Task<IActionResult> PostNewUserAsync(
-            string _firstName, 
-            string _lastName, 
-            string _email)
+
+        // POST /api/user/post
+        [HttpPost("post")]
+        public async Task<IActionResult> PostNewUserAsync([FromBody]User _newUser)
         {
             try
             {
-                await _ms.PostNewUser(_firstName, _lastName, _email);
+                await _ms.PostNewUser(_newUser);
                 return Ok();
             }
             catch
             {
                 return StatusCode(500, "Unable to add new user");
             }
-            
+
         }
     }
 }

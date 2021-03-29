@@ -14,8 +14,10 @@ namespace API.Services
         // Get all users
         public async Task<List<User>> GetAllUsers()
         {
-            return await _db.User.ToListAsync();
+            return await _db.User
+                .ToListAsync();
         }
+
         // Get a user by id
         public async Task<User> GetUserById(int _id)
         {
@@ -23,18 +25,19 @@ namespace API.Services
                 .Where(u => u.Id == _id)
                 .FirstOrDefaultAsync();
         }
+
         // Post a new user
-        public async Task PostNewUser(
-            string _firstName,
-            string _lastName, 
-            string _email)
+        public async Task PostNewUser(User _newUser)
         {
-            User newUser = new User();
-            newUser.FirstName = _firstName;
-            newUser.LastName = _lastName;
-            newUser.Email = _email;
-            await _db.User.AddAsync(newUser);
-            await _db.SaveChangesAsync();
+            try
+            {
+                await _db.User.AddAsync(_newUser);
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

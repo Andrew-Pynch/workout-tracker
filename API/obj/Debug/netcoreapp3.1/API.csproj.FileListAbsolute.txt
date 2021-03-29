@@ -52,3 +52,5 @@ D:\Github\workout-tracker\API\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfa
 D:\Github\workout-tracker\API\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
 D:\Github\workout-tracker\API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
 D:\Github\workout-tracker\API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
+D:\Github\workout-tracker\API\bin\Debug\netcoreapp3.1\Castle.Core.dll
+D:\Github\workout-tracker\API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Proxies.dll
