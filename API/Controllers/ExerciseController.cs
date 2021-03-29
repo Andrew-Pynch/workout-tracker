@@ -38,7 +38,9 @@ namespace API.Controllers
 
         // POST /api/user/post
         [HttpPost("post")]
-        public async Task<IActionResult> PostExerciseAsync([FromBody] Exercise _newExercise)
+        public async Task<IActionResult> PostExerciseAsync(
+            [FromBody] Exercise _newExercise
+            )
         {
             try
             {

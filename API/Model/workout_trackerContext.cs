@@ -18,7 +18,7 @@ namespace API.Model
         public virtual DbSet<Bodygroup> Bodygroup { get; set; }
         public virtual DbSet<Exercise> Exercise { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<Workoutlog> Workoutlog { get; set; }
+        public virtual DbSet<Workout> Workout { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -74,9 +74,9 @@ namespace API.Model
                 entity.Property(e => e.LastName).HasMaxLength(45);
             });
 
-            modelBuilder.Entity<Workoutlog>(entity =>
+            modelBuilder.Entity<Workout>(entity =>
             {
-                entity.ToTable("workoutlog");
+                entity.ToTable("workout");
 
                 entity.HasComment("										\\\\n\\\\n\\\\n\\\\n");
 
@@ -89,13 +89,13 @@ namespace API.Model
                 entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.HasOne(d => d.BodyGroup)
-                    .WithMany(p => p.Workoutlog)
+                    .WithMany(p => p.Workout)
                     .HasForeignKey(d => d.BodyGroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_workoutlog_bodygroup1");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Workoutlog)
+                    .WithMany(p => p.Workout)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_workoutlog_user1");

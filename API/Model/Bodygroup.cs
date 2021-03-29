@@ -8,13 +8,13 @@ namespace API.Model
         public Bodygroup()
         {
             Exercise = new HashSet<Exercise>();
-            Workoutlog = new HashSet<Workoutlog>();
+            Workout = new HashSet<Workout>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<Exercise> Exercise { get; set; }
-        public virtual ICollection<Workoutlog> Workoutlog { get; set; }
+        public virtual ICollection<Workout> Workout { get; set; }
     }
 }
