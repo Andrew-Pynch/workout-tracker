@@ -67,13 +67,14 @@ model VerificationToken {
 }
 
 model Exercise {
-    id        String   @id @default(cuid())
-    userId    String
-    date      DateTime
-    bodyGroup String
-    exercise  String
-    weight    Float
-    sets      Int
-    reps      Int
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id              String   @id @default(cuid())
+    userId          String
+    date            DateTime
+    bodyGroup       String
+    exercise        String
+    weight          Float
+    sets            Int
+    reps            Int
+    specialModifier String?
+    user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
