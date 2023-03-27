@@ -1,13 +1,16 @@
-import { type NextPage } from "next";
+import React from "react";
 import Menu from "~/components/menu";
 import { EMenuOption } from "~/domain/eMenuOption";
 
-const Home: NextPage = () => {
+type AddProps = {};
+
+const Add = (props: AddProps) => {
   return (
-    <>
+    <div>
       <Menu option={EMenuOption.ADD} />
-    </>
+      Add
+    </div>
   );
 };
 
-export default Home;
+export default Add;

@@ -11,7 +11,7 @@ const SignInRequest = (props: SignInRequestProps) => {
   }
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+    <div className="flex h-screen w-full flex-col items-center justify-center ">
       <h2 className="mb-8 text-4xl font-semibold text-white">
         Please sign in to continue
       </h2>

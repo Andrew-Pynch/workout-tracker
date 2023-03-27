@@ -1,21 +1,17 @@
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import LoginButton from "./customButtons";
 
 type HeaderProps = {};
 
 const Header = (props: HeaderProps) => {
-  const { data: sessionData } = useSession();
-  const router = useRouter();
-
   return (
-    <nav className="flex justify-between ">
+    <nav className="fixed top-0 z-50 mt-4 flex w-full items-center justify-between">
       <div className="flex items-center space-x-3 pr-6 lg:pr-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+        <p className="ont-extrabold text-sm tracking-tight text-white sm:text-[5rem]">
           Workout <span className="text-[hsl(280,100%,70%)]">Tracker</span>
-        </h1>
+        </p>
       </div>
 
-      {/* <LoginButton /> */}
+      <LoginButton />
     </nav>
   );
 };
