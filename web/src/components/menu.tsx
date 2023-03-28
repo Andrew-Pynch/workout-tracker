@@ -9,6 +9,8 @@ type MenuProps = {
 const Menu = (props: MenuProps) => {
   const router = useRouter();
 
+  router.push(props.option);
+
   const sharedStyles = `
     cursor-pointer
     select-none
