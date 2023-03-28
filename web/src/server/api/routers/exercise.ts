@@ -33,7 +33,7 @@ export const exerciseRouter = createTRPCRouter({
     .input(
       z.object({
         userId: z.string(),
-        bodyGroup: z.string().optional(),
+        bodyGroup: z.string(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -41,9 +41,8 @@ export const exerciseRouter = createTRPCRouter({
         return await ctx.prisma.exercise.findMany({
           where: {
             userId: input.userId,
-            ...(input.bodyGroup !== null ? { bodyGroup: input.bodyGroup } : {}),
+            bodyGroup: input.bodyGroup,
           },
-          distinct: ["exercise"],
           orderBy: {
             date: "desc",
           },

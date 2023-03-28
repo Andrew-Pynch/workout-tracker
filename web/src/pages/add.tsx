@@ -23,7 +23,7 @@ const Add = (props: AddProps) => {
   const { data: session } = useSession();
   const { data: exercisesByBodyGroup } =
     api.exercise.getAllNamesByUserIdAndBodyGroup.useQuery({
-      user
+      userId: session?.user.id as string,
       bodyGroup: bodyGroup,
     });
 

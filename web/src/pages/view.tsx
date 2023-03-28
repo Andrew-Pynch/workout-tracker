@@ -1,5 +1,6 @@
+import { Exercise } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dropdown from "~/components/dropdown";
 import Menu from "~/components/menu";
 import { EBodyGroup } from "~/domain/eBodyGroup";
@@ -12,23 +13,40 @@ const View = (props: ViewProps) => {
   const [bodyGroup, setBodyGroup] = useState<string>();
 
   const { data: session } = useSession();
-  const { data: exercises } = api.exercise.getAllByUserIdAndBodyGroup.useQuery({
+  const { data: exercises } = api.exercise.getAllByUserId.useQuery({
     userId: session?.user.id as string,
-    bodyGroup: bodyGroup,
   });
+  const { data: exercisesByBodyGroup } =
+    api.exercise.getAllByUserIdAndBodyGroup.useQuery({
+      userId: session?.user.id as string,
+      bodyGroup: bodyGroup ?? "",
+    });
 
-  console.log("exercises", exercises);
+  const [valuesToUse, setValuesToUse] = useState<Exercise[]>([]);
 
-  if (exercises === undefined) return <p>Loading...</p>;
+  useEffect(() => {
+    console.log("exercises", exercises);
+    console.log("exercisesByBodyGroup", exercisesByBodyGroup);
+
+    if (bodyGroup === undefined) setValuesToUse(exercises ?? []);
+    else if (exercisesByBodyGroup) setValuesToUse(exercisesByBodyGroup);
+    else setValuesToUse([]);
+  }, [exercises, exercisesByBodyGroup, bodyGroup]);
+
+  if (exercisesByBodyGroup === undefined && exercises) return <p>Loading...</p>;
   return (
     <div
       className={`
+         flex
+         flex-col
+         items-center
          text-black
     `}
     >
       <Menu option={EMenuOption.VIEW} />
       <p
         className={`
+
            text-white
       `}
       >
@@ -67,7 +85,7 @@ const View = (props: ViewProps) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {exercises.map((exercise) => (
+            {valuesToUse.map((exercise) => (
               <tr key={exercise.id}>
                 <td className="whitespace-nowrap px-6 py-4">
                   {exercise.bodyGroup}
