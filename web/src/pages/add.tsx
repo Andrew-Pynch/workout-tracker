@@ -2,7 +2,6 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { PrimaryButton } from "~/components/customButtons";
 import Dropdown from "~/components/dropdown";
-import { Input } from "~/components/input";
 import Menu from "~/components/menu";
 import { EBodyGroup } from "~/domain/eBodyGroup";
 import { EMenuOption } from "~/domain/eMenuOption";
@@ -75,11 +74,11 @@ const Add = (props: AddProps) => {
       />
       <div
         className={`
+           h-40
            max-h-40
            overflow-y-scroll
            rounded-lg
            bg-violet-600
-
       `}
       >
         {exercisesByBodyGroup && exercisesByBodyGroup.length > 0 ? (
@@ -112,8 +111,9 @@ const Add = (props: AddProps) => {
           <p>Select a body group</p>
         )}
       </div>
-      <div
+      {/* <div
         className={`
+
            h-80
       `}
       >
@@ -169,8 +169,8 @@ const Add = (props: AddProps) => {
         ) : (
           <p>Select an exercise</p>
         )}
-      </div>
-      <div
+      </div> */}
+      {/* <div
         className={`
            mt-4 
            mr-2 
@@ -202,7 +202,7 @@ const Add = (props: AddProps) => {
           value={weight}
           onValueChange={(v) => setWeight(parseInt(v))}
         />
-      </div>
+      </div> */}
       <PrimaryButton
         label="Add"
         className={`
