@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { PrimaryButton } from "~/components/customButtons";
 import Dropdown from "~/components/dropdown";
+import { Input } from "~/components/input";
 import Menu from "~/components/menu";
 import { EBodyGroup } from "~/domain/eBodyGroup";
 import { EMenuOption } from "~/domain/eMenuOption";
@@ -21,7 +22,8 @@ const Add = (props: AddProps) => {
 
   const { data: session } = useSession();
   const { data: exercisesByBodyGroup } =
-    api.exercise.getExercisesByBodyGroup.useQuery({
+    api.exercise.getAllNamesByUserIdAndBodyGroup.useQuery({
+      user
       bodyGroup: bodyGroup,
     });
 
@@ -74,9 +76,8 @@ const Add = (props: AddProps) => {
       />
       <div
         className={`
-           h-40
-           max-h-40
-           overflow-y-scroll
+           mb-8
+
            rounded-lg
            bg-violet-600
       `}
@@ -111,12 +112,7 @@ const Add = (props: AddProps) => {
           <p>Select a body group</p>
         )}
       </div>
-      {/* <div
-        className={`
-
-           h-80
-      `}
-      >
+      <div>
         {mostRecentExercisesByExerciseAndBodyGroup &&
         mostRecentExercisesByExerciseAndBodyGroup.length > 0 ? (
           <div className="flex flex-wrap">
@@ -169,8 +165,8 @@ const Add = (props: AddProps) => {
         ) : (
           <p>Select an exercise</p>
         )}
-      </div> */}
-      {/* <div
+      </div>
+      <div
         className={`
            mt-4 
            mr-2 
@@ -178,6 +174,7 @@ const Add = (props: AddProps) => {
            flex-col 
            items-center 
            justify-center
+           space-x-1
            sm:flex-row
       `}
       >
@@ -188,13 +185,10 @@ const Add = (props: AddProps) => {
           onValueChange={(v) => setSets(parseInt(v))}
         />
         <Input
-          className={`
-               ml-2
-          `}
           type="number"
           label="reps"
           value={reps}
-          onValueChange={(v) => setSets(parseInt(v))}
+          onValueChange={(v) => setReps(parseInt(v))}
         />
         <Input
           type="number"
@@ -202,7 +196,11 @@ const Add = (props: AddProps) => {
           value={weight}
           onValueChange={(v) => setWeight(parseInt(v))}
         />
-      </div> */}
+      </div>
+
+      <div>
+        <h2>{exercise}</h2>
+      </div>
       <PrimaryButton
         label="Add"
         className={`

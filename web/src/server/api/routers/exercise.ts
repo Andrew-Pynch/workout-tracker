@@ -29,10 +29,34 @@ export const exerciseRouter = createTRPCRouter({
         console.error("error", error);
       }
     }),
-  getExercisesByBodyGroup: protectedProcedure
+  getAllByUserIdAndBodyGroup: protectedProcedure
     .input(
       z.object({
-        bodyGroup: z.string(),
+        userId: z.string(),
+        bodyGroup: z.string().optional(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      try {
+        return await ctx.prisma.exercise.findMany({
+          where: {
+            userId: input.userId,
+            ...(input.bodyGroup !== null ? { bodyGroup: input.bodyGroup } : {}),
+          },
+          distinct: ["exercise"],
+          orderBy: {
+            date: "desc",
+          },
+        });
+      } catch (error) {
+        console.error("error", error);
+      }
+    }),
+  getAllNamesByUserIdAndBodyGroup: protectedProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+        bodyGroup: z.string().optional(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -42,7 +66,8 @@ export const exerciseRouter = createTRPCRouter({
             exercise: true,
           },
           where: {
-            bodyGroup: input.bodyGroup,
+            userId: input.userId,
+            ...(input.bodyGroup !== null ? { bodyGroup: input.bodyGroup } : {}),
           },
           distinct: ["exercise"],
           orderBy: {

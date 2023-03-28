@@ -27,7 +27,6 @@ export const PrimaryButton = (props: ButtonProps) => {
     <button
       className={`
            rounded-full 
-           bg-white/10 
            px-10 
            py-3 
            font-semibold 

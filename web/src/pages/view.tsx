@@ -1,14 +1,20 @@
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import Dropdown from "~/components/dropdown";
 import Menu from "~/components/menu";
+import { EBodyGroup } from "~/domain/eBodyGroup";
 import { EMenuOption } from "~/domain/eMenuOption";
 import { api } from "~/utils/api";
 
 type ViewProps = {};
 
 const View = (props: ViewProps) => {
+  const [bodyGroup, setBodyGroup] = useState<string>();
+
   const { data: session } = useSession();
-  const { data: exercises } = api.exercise.getAllByUserId.useQuery({
+  const { data: exercises } = api.exercise.getAllByUserIdAndBodyGroup.useQuery({
     userId: session?.user.id as string,
+    bodyGroup: bodyGroup,
   });
 
   console.log("exercises", exercises);
@@ -21,8 +27,20 @@ const View = (props: ViewProps) => {
     `}
     >
       <Menu option={EMenuOption.VIEW} />
+      <p
+        className={`
+           text-white
+      `}
+      >
+        Body Group
+      </p>
+      <Dropdown
+        options={Object.values(EBodyGroup)}
+        selectedOption={bodyGroup}
+        setSelectedOption={setBodyGroup}
+      />
 
-      <div className="h-96 w-full max-w-2xl overflow-auto">
+      <div className="mt-4 h-96 w-full max-w-2xl overflow-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
