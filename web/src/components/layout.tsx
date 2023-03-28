@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 
 import { api } from "../utils/api";
 import Header from "./header";
-import SignInRequest from "./SignInRequest";
+import SignInRequest from "./signInRequest";
 
 type LayoutProps = {
   children: React.ReactNode;

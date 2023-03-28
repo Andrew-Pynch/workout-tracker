@@ -17,5 +17,11 @@ body {
     h4 {
       @apply text-xl;
     }
+    * {
+      @apply appearance-none outline-none;
+    }
+    *:focus {
+      @apply appearance-none outline-none;
+    }
   }
 }
