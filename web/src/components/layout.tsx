@@ -54,10 +54,7 @@ const Layout = (props: LayoutProps) => {
     >
       <Head>
         <title>Workout Tracker</title>
-        <meta
-          name="description"
-          content="Generated with love by Andrew Pynch"
-        />
+        <meta name="description" content="Made By Andrew Pynch" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
