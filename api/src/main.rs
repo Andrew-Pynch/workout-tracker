@@ -27,7 +27,9 @@ fn rocket() -> Rocket<Build> {
         routes![
             index,
             workout::workout_controller::index,
-            workout::workout_controller::new_workout
+            workout::workout_controller::new_workout,
+            workout::workout_controller::update_workout,
+            workout::workout_controller::delete_workout,
         ],
     )
 }
