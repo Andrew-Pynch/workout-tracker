@@ -2,9 +2,9 @@
 
 diesel::table! {
     workout (id) {
-        id -> Text,
+        id -> Int4,
         userid -> Text,
-        date -> Timestamp,
+        exercisedate -> Timestamp,
         bodygroup -> Text,
         exercise -> Text,
         weight -> Float8,
