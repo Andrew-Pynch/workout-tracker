@@ -1,7 +1,7 @@
 // mod database;
 mod model;
-// mod schema;
-// mod workout;
+mod schema;
+mod workout;
 
 #[macro_use]
 extern crate rocket;
