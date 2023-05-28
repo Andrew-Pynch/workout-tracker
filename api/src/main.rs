@@ -1,5 +1,5 @@
 // mod database;
-// mod model;
+mod model;
 // mod schema;
 // mod workout;
 
