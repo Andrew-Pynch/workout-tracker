@@ -2,7 +2,7 @@ import { Exercise } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Dropdown from "~/components/dropdown";
-import Menu from "~/components/menu";
+
 import { EBodyGroup } from "~/domain/eBodyGroup";
 import { EMenuOption } from "~/domain/eMenuOption";
 import { api } from "~/utils/api";
@@ -43,7 +43,6 @@ const View = (props: ViewProps) => {
          text-black
     `}
     >
-      <Menu option={EMenuOption.VIEW} />
       <p
         className={`
 

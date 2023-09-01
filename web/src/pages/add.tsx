@@ -3,9 +3,8 @@ import { useState } from "react";
 import { PrimaryButton } from "~/components/customButtons";
 import Dropdown from "~/components/dropdown";
 import { Input } from "~/components/input";
-import Menu from "~/components/menu";
+
 import { EBodyGroup } from "~/domain/eBodyGroup";
-import { EMenuOption } from "~/domain/eMenuOption";
 import { api } from "~/utils/api";
 import SignInRequest from "../components/signInRequest";
 
@@ -32,8 +31,6 @@ const Add = (props: AddProps) => {
       bodyGroup: bodyGroup,
       exercise: exercise,
     });
-
-  console.log("TEST", mostRecentExercisesByExerciseAndBodyGroup);
 
   const postExercise = api.exercise.add.useMutation({
     onMutate: async (newEntry) => {
@@ -67,7 +64,6 @@ const Add = (props: AddProps) => {
         md:mt-0
     `}
     >
-      <Menu option={EMenuOption.ADD} />
       <p>Body Group</p>
       <Dropdown
         options={Object.values(EBodyGroup)}

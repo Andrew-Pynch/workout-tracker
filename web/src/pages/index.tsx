@@ -1,13 +1,25 @@
-import { type NextPage } from "next";
-import Menu from "~/components/menu";
-import { EMenuOption } from "~/domain/eMenuOption";
+import { GetServerSideProps, type NextPage } from "next";
+import Head from "next/head";
 
-const Home: NextPage = () => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  return {
+    redirect: {
+      destination: "/add",
+      permanent: false,
+    },
+  };
+};
+
+const Landing: NextPage = () => {
   return (
     <>
-      <Menu option={EMenuOption.ADD} />
+      <Head>
+        <title>workout-tracker</title>
+        <meta name="description" content="Made with love by Andrew Pynch" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
     </>
   );
 };
 
-export default Home;
+export default Landing;
