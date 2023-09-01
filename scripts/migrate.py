@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import math
 import os
 import os.path
 import re
@@ -17,9 +18,9 @@ from psycopg2 import sql
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
-# The ID and range of a sample spreadsheet.
-SAMPLE_SPREADSHEET_ID = "1fWdUV91BP367UmVn5cKOZZzAPBm_ExAogeCP0O2t0CY"
-WORKSHEETS = ["Chest", "Arms", "Shoulders", "Back", "Core", "Legs"]
+# THE ID AND RANGE OF A SAMPLE SPREADSHEET.
+SAMPLE_SPREADSHEET_ID = "1FWDUV91BP367UMVN5CKOZZZAPBM_EXAOGECP0O2T0CY"
+WORKSHEETS = ["CHEST", "ARMS", "SHOULDERS", "BACK", "CORE", "LEGS"]
 
 
 # Load environment variables from .env file
@@ -58,6 +59,7 @@ def get_dataframes_from_google_sheets():
     Prints values from a sample spreadsheet.
     """
     creds = None
+
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
@@ -79,6 +81,8 @@ def get_dataframes_from_google_sheets():
 
         # Initialize an empty dictionary to store the dataframes
         dataframes = {}
+
+        print("Getting data from Google Sheets...")
 
         # Loop through each worksheet and select relevant data into a dataframe
         for worksheet in WORKSHEETS:
@@ -207,7 +211,7 @@ def insert_exercises(dataframes, user_id, database_url):
             ) = row  # Include body_group here
 
             # Add print statements before executing the query
-            print(f"Inserting exercise:")
+            print(f"\n\nInserting exercise:")
             print(f"User ID: {user_id}")
             print(f"Date: {date}")
             print(f"Body Group: {body_group}")
@@ -221,21 +225,42 @@ def insert_exercises(dataframes, user_id, database_url):
                 """
                 INSERT INTO "Exercise" ("id", "userId", "date", "bodyGroup", "exercise", "weight", "sets", "reps", "specialModifier")
                 VALUES (uuid_generate_v4(), %s, %s, %s, %s, %s, %s, %s, %s);
-                """
+            """
             )
-            cur.execute(
-                query,
-                (
-                    user_id,
-                    date,
-                    body_group,
-                    exercise_name,
-                    weight,
-                    sets,
-                    reps,
-                    special_modifier_string,
-                ),
-            )
+
+            # Skip row if any required field is None
+            check_values = [
+                x if isinstance(x, (int, float)) else None for x in [sets, reps, weight]
+            ]
+            if all(
+                x is not None and (not isinstance(x, float) or not math.isnan(x))
+                for x in check_values
+            ):
+                cur.execute(
+                    query,
+                    (
+                        user_id,
+                        date,
+                        body_group,
+                        exercise_name,
+                        float(weight)
+                        if not (isinstance(weight, float) and math.isnan(weight))
+                        else None,
+                        int(sets)
+                        if not (isinstance(sets, float) and math.isnan(sets))
+                        else None,
+                        int(reps)
+                        if not (isinstance(reps, float) and math.isnan(reps))
+                        else None,
+                        special_modifier_string
+                        if special_modifier_string != "nan"
+                        else None,
+                    ),
+                )
+            else:
+                print(
+                    f"Skipping row due to NULL constraint for sets/reps/weight: {row}"
+                )
 
     # Commit the changes and close the connection
     conn.commit()
@@ -244,9 +269,9 @@ def insert_exercises(dataframes, user_id, database_url):
 
 
 def main():
-    dataframes = get_dataframes_from_google_sheets()
+    # dataframes = get_dataframes_from_google_sheets()
     # save_dataframes_to_csv(dataframes)
-    # dataframes = load_dataframes_from_csv()
+    dataframes = load_dataframes_from_csv()
     insert_exercises(dataframes, USER_ID, DATABASE_URL)
 
 
