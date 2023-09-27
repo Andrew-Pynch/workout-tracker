@@ -4,7 +4,7 @@ import Head from "next/head";
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     redirect: {
-      destination: "/workout",
+      destination: "/workout/add",
       permanent: false,
     },
   };

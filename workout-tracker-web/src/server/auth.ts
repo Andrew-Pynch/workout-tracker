@@ -4,8 +4,10 @@ import {
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
+  DefaultUser,
 } from "next-auth";
 import GoogleProvider from 'next-auth/providers/google';
+
 
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
@@ -18,17 +20,14 @@ import { prisma } from "~/server/db";
  */
 declare module "next-auth" {
   interface Session extends DefaultSession {
-    user: DefaultSession["user"] & {
+    user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
-    };
+      role: Role;
+    } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User extends DefaultUser {
+    role: Role;
+  }
 }
 
 /**
@@ -38,13 +37,22 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    session: async ({ session, token, user }) => {
+      let userDetails = await prisma.user.findUnique({
+        where: {
+          id: user?.id || (token.userId as string) || undefined,
+        },
+      });
+
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: user?.id || token.userId,
+          role: userDetails?.role,
+        },
+      };
+    },
   },
   adapter: PrismaAdapter(prisma),
   providers: [
