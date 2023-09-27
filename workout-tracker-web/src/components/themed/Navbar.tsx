@@ -125,9 +125,7 @@ const Navbar = () => {
           )}
         </AnimatePresence>
         <div className="flex w-full items-center justify-between">
-          <div className="flex">
-            logo goes here
-          </div>
+          <h1>Workout Tracker</h1>
 
           {/* Hamburger Menu Icon */}
           <Hamburger
@@ -143,16 +141,13 @@ const Navbar = () => {
           `}
           >
             {NavLinks.map((link) =>
-              link.showForAdmin === undefined ||
-              (isAdmin && link.showForAdmin) ? (
-                <CustomNavLink
-                  key={link.href}
-                  href={link.href}
-                  target={link.target}
-                >
-                  {link.title}
-                </CustomNavLink>
-              ) : null
+              <CustomNavLink
+                key={link.href}
+                href={link.href}
+                target={link.target}
+              >
+                {link.title}
+              </CustomNavLink>
             )}
 
             <div className="mt-auto flex gap-4">
@@ -187,17 +182,14 @@ const Navbar = () => {
                   `}
                   >
                     {NavLinks.map((link) =>
-                      link.showForAdmin === undefined ||
-                      (isAdmin && link.showForAdmin) ? (
-                        <CustomNavLink
-                          key={link.href}
-                          href={link.href}
-                          target={link.target}
-                          onClick={closeMobileMenu}
-                        >
-                          {link.title}
-                        </CustomNavLink>
-                      ) : null
+                      <CustomNavLink
+                        key={link.href}
+                        href={link.href}
+                        target={link.target}
+                        onClick={closeMobileMenu}
+                      >
+                        {link.title}
+                      </CustomNavLink>
                     )}
                   </div>
                   <div className="flex flex-col gap-4 uppercase">

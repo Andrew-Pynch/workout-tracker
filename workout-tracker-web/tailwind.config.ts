@@ -10,9 +10,9 @@ export default {
   theme: {
     colors: {
       ...colors,
-      primary: "#011315",
-      secondary: "#E7FD32",
-      tertiary: "#0F2F36",
+      primary: "#27465B",
+      secondary: "#3CB9EA",
+      tertiary: "#93C5D3",
       accent: "#C3E2E2",
       success: "#47AA56",
       backgroundInvert: "#F5F5EB",
