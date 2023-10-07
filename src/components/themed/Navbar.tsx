@@ -1,3 +1,4 @@
+
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -8,10 +9,10 @@ import {
   useRef,
   useState,
 } from "react";
-import Hamburger from "../icons/Hamburger";
-import X from "../icons/X";
+import Close from "~/icons/Close";
+import Hamburger from "~/icons/Hamburger";
 import { Logo } from "./Logo";
-import { LoginButton, PrimaryButton } from "./CustomButtons";
+import { LoginButton } from "./buttons/LoginButton";
 
 export const CustomNavLink = ({
   children,
@@ -68,18 +69,18 @@ export const InlineTextLink = ({
 };
 
 const NavLinks = [
-  { title: "Add Workout", href: "/workout/add", target: "_self" },
-  { title: "View Workouts", href: "/workout/view", target: "_self" },
+  { title: "Events", href: "/events", target: "_self" },
+  { title: "About River", href: "https://getriver.io", target: "_blank" },
+  { title: "Profile", href: "/profile", target: "_self" },
+  { title: "Admin", href: "/admin", target: "_self", showForAdmin: true },
 ];
 
 const Navbar = () => {
   const { data: sessionData } = useSession();
 
-  const isAdmin = sessionData?.user?.role === "ADMIN";
-
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navbarRef = useRef<HTMLElement | null>(null); // Specify the type here
+  const navbarRef = useRef<HTMLElement | null>(null);
 
   const handleResize = () => {
     const navbarHeight = navbarRef.current?.offsetHeight || 0;
@@ -125,7 +126,9 @@ const Navbar = () => {
           )}
         </AnimatePresence>
         <div className="flex w-full items-center justify-between">
-          <h1>Workout Tracker</h1>
+          <div className="flex">
+            <Logo asLink />
+          </div>
 
           {/* Hamburger Menu Icon */}
           <Hamburger
@@ -140,18 +143,30 @@ const Navbar = () => {
               uppercase text-white lg:flex xl:gap-12
           `}
           >
-            {NavLinks.map((link) =>
-              <CustomNavLink
-                key={link.href}
-                href={link.href}
-                target={link.target}
-              >
-                {link.title}
-              </CustomNavLink>
-            )}
+            {/*NavLinks.map((link) =>
+              link.showForAdmin === undefined ||
+              (isAdmin && link.showForAdmin) ? (
+                <CustomNavLink
+                  key={link.href}
+                  href={link.href}
+                  target={link.target}
+                >
+                  {link.title}
+                </CustomNavLink>
+              ) : null
+            )*/}
 
             <div className="mt-auto flex gap-4">
-              <LoginButton className="w-max px-4" onClick={closeMobileMenu} />
+              {/*(isManager || isAdmin) && (
+                <PrimaryButton
+                  href="/events/create"
+                  className="px-5"
+                  onClick={closeMobileMenu}
+                >
+                  Create Event
+                </PrimaryButton>
+              )*/}
+              <LoginButton />
             </div>
           </div>
 
@@ -171,7 +186,7 @@ const Navbar = () => {
                   font-ibm-plex-mono backdrop-blur-md lg:hidden
               `}
               >
-                <X
+                <Close
                   onClick={() => closeMobileMenu()}
                   className="font-2xl select-none self-end"
                 />
@@ -181,22 +196,30 @@ const Navbar = () => {
                   flex h-full flex-col items-center justify-start gap-8 uppercase
                   `}
                   >
-                    {NavLinks.map((link) =>
-                      <CustomNavLink
-                        key={link.href}
-                        href={link.href}
-                        target={link.target}
-                        onClick={closeMobileMenu}
-                      >
-                        {link.title}
-                      </CustomNavLink>
-                    )}
+                    {/*NavLinks.map((link) =>
+                      link.showForAdmin === undefined ||
+                      (isAdmin && link.showForAdmin) ? (
+                        <CustomNavLink
+                          key={link.href}
+                          href={link.href}
+                          target={link.target}
+                          onClick={closeMobileMenu}
+                        >
+                          {link.title}
+                        </CustomNavLink>
+                      ) : null
+                    )*/}
                   </div>
                   <div className="flex flex-col gap-4 uppercase">
-                    <LoginButton
-                      className="w-max px-4"
-                      onClick={closeMobileMenu}
-                    />
+                    {/*(isManager || isAdmin) && (
+                      <PrimaryButton
+                        href="/events/create"
+                        className="px-5"
+                        onClick={closeMobileMenu}
+                      >
+                        Create Event
+                      </PrimaryButton>
+                    )*/}
                   </div>
                 </div>
               </motion.div>
@@ -209,4 +232,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

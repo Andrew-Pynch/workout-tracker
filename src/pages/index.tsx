@@ -1,16 +1,16 @@
-import { GetServerSideProps, type NextPage } from "next";
-import Head from "next/head";
+import { GetServerSideProps } from "next";
+import Head  from "next/head";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     redirect: {
-      destination: "/workout/add",
+      destination: "/add",
       permanent: false,
     },
   };
 };
 
-const Landing: NextPage = () => {
+export default function Home() {
   return (
     <>
       <Head>
@@ -20,6 +20,4 @@ const Landing: NextPage = () => {
       </Head>
     </>
   );
-};
-
-export default Landing;
+}

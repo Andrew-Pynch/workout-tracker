@@ -283,7 +283,7 @@ function _signIn() {
             isEmail = providers[provider].type === "email";
             isSupportingReturn = isCredentials || isEmail;
             signInUrl = "".concat(baseUrl, "/").concat(isCredentials ? "callback" : "signin", "/").concat(provider);
-            _signInUrl = "".concat(signInUrl, "?").concat(new URLSearchParams(authorizationParams));
+            _signInUrl = "".concat(signInUrl).concat(authorizationParams ? "?".concat(new URLSearchParams(authorizationParams)) : "");
             _context6.t0 = fetch;
             _context6.t1 = _signInUrl;
             _context6.t2 = {

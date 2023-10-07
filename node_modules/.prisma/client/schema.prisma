@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
@@ -15,9 +15,12 @@ datasource db {
 }
 
 model Example {
-    id        String   @id @default(cuid())
+    id        Int      @id @default(autoincrement())
+    name      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    @@index([name])
 }
 
 // Necessary for Next auth
@@ -47,23 +50,25 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-enum Role {
-    ADMIN
-    USER
-}
-
 model User {
     id            String    @id @default(cuid())
     name          String?
     email         String?   @unique
     emailVerified DateTime?
     image         String?
+    accounts      Account[]
+    sessions      Session[]
 
-    // role Role
+    role          Role      @default(USER)
 
-    accounts Account[]
-    sessions Session[]
-    Exercise Exercise[]
+    stripeCustomerId String? 
+
+    Exercises     Exercise[]
+}
+
+enum Role {
+    USER 
+    ADMIN
 }
 
 model VerificationToken {

@@ -1,0 +1,121 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+  @apply bg-primary text-white;
+}
+
+@layer components {
+  .dropzone-container {
+    @apply relative flex h-[300px] w-[300px] flex-col items-center justify-between rounded-lg border border-zinc-500 bg-zinc-200 text-center align-middle text-zinc-500 shadow-inner;
+  }
+
+  .submit-button {
+    @apply rounded-lg bg-blue-600 px-3 py-2 text-white duration-150 hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-blue-600;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --primary: 186 91% 4%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 67 98% 59%;
+    --secondary-foreground: 210 40% 98%;
+  }
+
+  /* Works on Chrome/Edge/Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  *::-webkit-scrollbar-track {
+    /* background: rgba(59, 130, 246, 1); */
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #f5f5eb;
+    border-radius: 20px;
+    /* border: 3px solid rgba(59, 130, 246, 1); */
+  }
+
+  h1 {
+    @apply text-4xl;
+    @apply font-noto-serif;
+  }
+  h2 {
+    @apply text-3xl;
+    @apply font-noto-serif;
+  }
+  h3 {
+    @apply text-2xl;
+    @apply font-noto-serif;
+  }
+  h4 {
+    @apply text-xl;
+    @apply font-noto-serif;
+  }
+  p {
+    @apply text-base;
+    @apply font-noto-serif;
+  }
+
+
+
+  /* paragraph.p1 {
+    @apply text-base;
+    @apply font-noto-serif;
+  } */
+
+  .form-group {
+    @apply mb-4 flex flex-col;
+  }
+
+  .form-group label {
+    @apply mb-1 text-sm text-gray-600;
+  }
+
+  .form-group input,
+  select {
+    @apply rounded border p-2 leading-tight text-black focus:outline-none focus:ring-2 focus:ring-primary;
+  }
+
+  .form-group span {
+    @apply mt-1 text-xs italic text-red-500;
+  }
+
+  .form-group {
+    @apply mb-4 flex flex-col;
+  }
+
+  .form-group label {
+    @apply mb-1 text-sm text-dark-gray;
+  }
+
+  .form-group input,
+  textarea,
+  select {
+    @apply rounded border border-[#6e8083] bg-[#455557] p-2 leading-tight focus:outline-none focus:ring-2 focus:ring-primary;
+    color: white;
+  }
+
+  .form-group input::placeholder,
+  textarea::placeholder {
+    @apply text-dark-gray;
+    font-weight: 500;
+  }
+
+  .form-group span {
+    @apply mt-1 text-xs italic text-red-500;
+  }
+}

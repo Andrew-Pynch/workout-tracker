@@ -2,32 +2,19 @@ import { type Config } from "tailwindcss";
 
 const colors = require("tailwindcss/colors");
 
-export const SECONDARY = "#E7FD32";
-export const SUCCESS = "#47AA56";
-
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     colors: {
       ...colors,
-      primary: "#27465B",
-      secondary: "#3CB9EA",
-      tertiary: "#93C5D3",
-      accent: "#C3E2E2",
+      primary: "#242222",
+      secondary: "#F95B5B",
+      tertiary: "#C1E0E1",
+      accent: "#1B8923",
       success: "#47AA56",
-      backgroundInvert: "#F5F5EB",
-      backgroundInvertAccent: "#d9ded7",
-      "light-gray": "#E4E4E4",
-      "dark-gray": "#B7BFCA",
-      destructive: "#710a0b",
+      danger: "#F32013",
     },
     extend: {
-      fontFamily: {
-        "noto-serif": ["var(--font-noto-serif)"],
-        "space-mono": ["var(--font-space-mono)"],
-        "ibm-plex-mono": ["var(--font-ibm-mono)"],
-        faktum: ["var(--font-faktum)"],
-      },
       boxShadow: {
         outline: "0 0 0 3px rgba(66, 153, 225, 0.5)",
       },
@@ -51,11 +38,6 @@ export default {
           foreground: "hsl(var(--accent-foreground))",
         },
       },
-    },
-  },
-  variants: {
-    extend: {
-      boxShadow: ["focus"],
     },
   },
   plugins: [],

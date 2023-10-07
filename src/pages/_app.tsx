@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import { ToastContainer } from "react-toastify";
+import { IntercomProvider } from "~/utils/IntercomProvider";
 import Layout from "~/components/themed/Layout";
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -14,9 +15,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
+      <ToastContainer />
       <Layout>
-        <ToastContainer />
-        <Component {...pageProps} />
+        <IntercomProvider>
+          <Component {...pageProps} />
+        </IntercomProvider>
       </Layout>
     </SessionProvider>
   );
