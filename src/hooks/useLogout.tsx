@@ -1,4 +1,3 @@
-
 import { signOut } from "next-auth/react";
 import { clearStores } from "../state/store";
 

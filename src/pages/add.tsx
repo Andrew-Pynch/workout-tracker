@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "~/components/shadcn/Button";
 import { BodyGroup, Exercise } from "@prisma/client";
 import React, { useState } from "react";
-import { PrimaryButton } from "old/src/components/themed/CustomButtons";
+import { PrimaryButton } from "~/components/themed/buttons/CustomButtons";
 
 type FormData = {
   exercise: Exercise;
