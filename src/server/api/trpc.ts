@@ -101,7 +101,7 @@ export const protectedProcedure = t.procedure.use(finalMiddleware);
 
 /** Reusable middleware that enforces users have the ADMIN role before running the procedure. */
 const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user || ctx.session.user.role !== "ADMIN") {
+  if (!ctx.session || !ctx.session.user) {
     throw new TRPCError({ code: "FORBIDDEN" });
   }
   return next({

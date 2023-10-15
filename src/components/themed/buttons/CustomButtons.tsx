@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { useLogout } from "~/hooks/useLogout";
 import { useUserStore } from "~/state/store";
 import { api } from "~/utils/api";
+import Spinner from "../Spinner";
 
 type ButtonProps = {
   children?: React.ReactNode;
