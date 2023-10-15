@@ -1,4 +1,3 @@
-
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -69,10 +68,12 @@ export const InlineTextLink = ({
 };
 
 const NavLinks = [
-  { title: "Events", href: "/events", target: "_self" },
-  { title: "About River", href: "https://getriver.io", target: "_blank" },
-  { title: "Profile", href: "/profile", target: "_self" },
-  { title: "Admin", href: "/admin", target: "_self", showForAdmin: true },
+  { title: "Add", href: "/add", target: "_self" },
+  {
+    title: "View",
+    href: "/view",
+    target: "_self",
+  },
 ];
 
 const Navbar = () => {
@@ -86,7 +87,7 @@ const Navbar = () => {
     const navbarHeight = navbarRef.current?.offsetHeight || 0;
     document.documentElement.style.setProperty(
       "--navbar-height",
-      `${navbarHeight}px`
+      `${navbarHeight}px`,
     );
   };
 
@@ -109,8 +110,8 @@ const Navbar = () => {
       <nav
         ref={navbarRef}
         className={`
-          fixed z-[100] flex h-max w-full justify-center bg-primary 
-          bg-opacity-60 px-4 py-6 font-ibm-plex-mono backdrop-blur-md
+          font-ibm-plex-mono fixed z-[100] flex h-max w-full justify-center 
+          bg-primary bg-opacity-60 px-4 py-6 backdrop-blur-md
           lg:max-w-[1240px] lg:items-end lg:pb-3
         `}
       >
@@ -143,29 +144,20 @@ const Navbar = () => {
               uppercase text-white lg:flex xl:gap-12
           `}
           >
-            {/*NavLinks.map((link) =>
-              link.showForAdmin === undefined ||
-              (isAdmin && link.showForAdmin) ? (
+            {NavLinks.map((link) => {
+              return (
                 <CustomNavLink
                   key={link.href}
                   href={link.href}
                   target={link.target}
+                  onClick={() => closeMobileMenu()}
                 >
                   {link.title}
                 </CustomNavLink>
-              ) : null
-            )*/}
+              );
+            })}
 
             <div className="mt-auto flex gap-4">
-              {/*(isManager || isAdmin) && (
-                <PrimaryButton
-                  href="/events/create"
-                  className="px-5"
-                  onClick={closeMobileMenu}
-                >
-                  Create Event
-                </PrimaryButton>
-              )*/}
               <LoginButton />
             </div>
           </div>
@@ -179,11 +171,11 @@ const Navbar = () => {
                 exit={{ x: "100%" }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className={`
-                  absolute
-                  right-0 top-0 z-[201] flex h-screen w-64 
-                  flex-col gap-4 bg-primary px-4
-                  py-6
-                  font-ibm-plex-mono backdrop-blur-md lg:hidden
+                  font-ibm-plex-mono
+                  absolute right-0 top-0 z-[201] flex h-screen 
+                  w-64 flex-col gap-4 bg-primary
+                  px-4
+                  py-6 backdrop-blur-md lg:hidden
               `}
               >
                 <Close
@@ -196,31 +188,21 @@ const Navbar = () => {
                   flex h-full flex-col items-center justify-start gap-8 uppercase
                   `}
                   >
-                    {/*NavLinks.map((link) =>
-                      link.showForAdmin === undefined ||
-                      (isAdmin && link.showForAdmin) ? (
+                    {NavLinks.map((link) => {
+                      return (
                         <CustomNavLink
                           key={link.href}
                           href={link.href}
                           target={link.target}
-                          onClick={closeMobileMenu}
+                          onClick={() => closeMobileMenu()}
                         >
                           {link.title}
                         </CustomNavLink>
-                      ) : null
-                    )*/}
+                      );
+                    })}
+                    <LoginButton />
                   </div>
-                  <div className="flex flex-col gap-4 uppercase">
-                    {/*(isManager || isAdmin) && (
-                      <PrimaryButton
-                        href="/events/create"
-                        className="px-5"
-                        onClick={closeMobileMenu}
-                      >
-                        Create Event
-                      </PrimaryButton>
-                    )*/}
-                  </div>
+                  <div className="flex flex-col gap-4 uppercase"></div>
                 </div>
               </motion.div>
             )}
