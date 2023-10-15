@@ -32,6 +32,7 @@
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
     "framer-motion": "^10.16.4",
+    "lucide-react": "^0.287.0",
     "next": "^13.4.19",
     "next-auth": "^4.23.0",
     "react": "18.2.0",
