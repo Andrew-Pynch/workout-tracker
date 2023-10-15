@@ -8,6 +8,7 @@ import "~/styles/globals.css";
 import { ToastContainer } from "react-toastify";
 import { IntercomProvider } from "~/utils/IntercomProvider";
 import Layout from "~/components/themed/Layout";
+import 'react-toastify/dist/ReactToastify.css';
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -17,9 +18,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <ToastContainer />
       <Layout>
+        <Component {...pageProps} />
+        {/*
         <IntercomProvider>
           <Component {...pageProps} />
         </IntercomProvider>
+        */}
       </Layout>
     </SessionProvider>
   );
