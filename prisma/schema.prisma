@@ -79,11 +79,22 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
+enum BodyGroup {
+    CHEST
+    ARMS
+    SHOULDERS
+    BACK
+    CORE
+    LEGS
+    NONE
+}
+
 model Exercise {
     id              String   @id @default(cuid())
     userId          String
     date            DateTime
     bodyGroup       String
+    EBodyGroup      BodyGroup @default(NONE)
     exercise        String
     weight          Float
     sets            Int

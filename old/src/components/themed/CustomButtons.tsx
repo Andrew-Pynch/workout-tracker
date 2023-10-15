@@ -31,15 +31,8 @@ export const PrimaryButton = (props: ButtonProps) => {
     border
     border-primary
 
-    py-2
-    text-primary
-    transition-colors
-    delay-[30ms]
-    ease-in
-    px-6
-    md:px-12
     ${
-      props.disabled
+      props.selected
         ? `
       bg-gray-400
       cursor-not-allowed
@@ -49,8 +42,9 @@ export const PrimaryButton = (props: ButtonProps) => {
       cursor-pointer
       hover:border-secondary
       hover:bg-primary
-      hover:text-secondary
+      hover:text-white
       hover:transition-colors
+      hover:opacity-80
       hover:delay-[30ms]
     `
     }
